@@ -1,129 +1,147 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+//sort colors
 
-# C extensions
-*.so
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        
+        
+        a=Counter(nums)
+        for i in range(len(nums)):
+            if a[0] >0:
+                nums[i] =0
+                a[0] -= 1
+            elif a[1]>0:
+                nums[i]=1
+                a[1] -=1
+            else:
+                nums[i]=2
+                
+//Valid Anagram
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s)==Counter(t)
+        
+        
+ // Single Number III
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+from collections import Counter
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        d=Counter(nums)
+        res=[]
+        for key,value in d.items():
+            if value==1:
+                res.append(key)
+        return res
+        
+        
+ //  Next Permutation
+ 
+ 
+ class Solution(object):
+    def nextPermutation(self, nums):
+        maxnums = max(nums)
+        l, r = -1, -1
+        c = [-1]*(maxnums+1)
+        for i in range(len(nums)-2, -1, -1):
+            if c[nums[i+1]] == -1:
+                c[nums[i+1]] = i+1
+            
+            next_ = -1
+            for j in range(nums[i]+1, maxnums+1):
+                if c[j] >= 0:
+                    next_ = c[j]
+                    break
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+            if next_ >= 0:
+                l, r = i, next_
+                break
 
-# Translations
-*.mo
-*.pot
+        if l < 0:
+            nums.sort()
+        else:
+            nums[l], nums[r] = nums[r], nums[l]
+            numsSorted = sorted(nums[l+1:])
+            for i in range(l+1, len(nums)):
+                nums[i] = numsSorted[i-l-1]
+        
+   //   Rotate Image
+   
+   
+   class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+       
+        n = len(matrix)
+        matrix.reverse()
+        for i in range(n):
+            for j in range(i):
+                matrix[i][j],matrix[j][i] =  matrix[j][i],matrix[i][j]  
+       
+               
+//  Determine if Two Strings Are Close
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 
-# Flask stuff:
-instance/
-.webassets-cache
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        d1={}
+        d2={}
+        for i in word1:
+            if i not in d1:
+                d1[i]=1
+            else:
+                d1[i]=d1[i]+1
+        for i in word2:
+            if i not in d2:
+                d2[i]=1
+            else:
+                d2[i]=d2[i]+1
+        if sorted(d1.values())==sorted(d2.values()) and sorted(d1.keys())==sorted(d2.keys()):
+            return True
+        else:
+            return False
 
-# Scrapy stuff:
-.scrapy
 
-# Sphinx documentation
-docs/_build/
+   //  Sort Characters By Frequency
+   
+   
+   
+   class Solution:
+    def frequencySort(self, s: str) -> str:
+        c =Counter(list(s))
 
-# PyBuilder
-target/
+        output = []
+        for char in sorted(c,key=lambda x:c[x],reverse = True):
+            output.append(char*c[char])
 
-# Jupyter Notebook
-.ipynb_checkpoints
+        return ''.join(output)
+        
+        
+     //   Reverse Vowels of a String
+     
+     
+     class Solution(object):
+    def reverseVowels(self, s):
+        vowels = ['a', 'e', 'i', 'o', 'u']
+        
+        s = list(s)
+        i = 0
+        j = len(s) - 1
+        while i < j:
+            while i < j and s[i].lower() not in vowels:
+                i += 1
+            while i < j and s[j].lower() not in vowels:
+                j -= 1
+            
+            if s[i].lower() in vowels and s[j].lower() in vowels:
+                temp = s[i]
+                s[i] = s[j]
+                s[j] = temp
+                
+            i += 1
+            j -= 1
+            
+        return "".join(s)
 
-# IPython
-profile_default/
-ipython_config.py
 
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+                
